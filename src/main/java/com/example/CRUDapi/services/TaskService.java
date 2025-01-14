@@ -1,25 +1,17 @@
 package com.example.CRUDapi.services;
 
 import com.example.CRUDapi.entities.Task;
-import com.example.CRUDapi.repositories.TaskRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class TaskService {
-    private final TaskRepository taskRepository;
+public interface TaskService {
 
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
+    void saveTask(Task task);
 
-    public void save(Task taskEntity){
-        taskRepository.save(taskEntity);
-    }
+    List<Task> getAllTasks();
 
+    Optional<Task> getTaskById(int id);
 
-    public List<Task> getAll(){
-        return taskRepository.findAll();
-    }
+    void deleteTask(int id);
 }
