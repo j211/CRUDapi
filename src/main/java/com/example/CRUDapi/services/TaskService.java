@@ -1,17 +1,19 @@
 package com.example.CRUDapi.services;
 
-import com.example.CRUDapi.entities.Task;
+import com.example.CRUDapi.dto.TaskDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TaskService {
 
-    void saveTask(Task task);
+    void saveTask(TaskDto taskDto);
 
-    List<Task> getAllTasks();
+    void updateTask(int id, TaskDto taskDto);
 
-    Optional<Task> getTaskById(int id);
+    List<TaskDto> getAllTasks();
+
+    Optional<TaskDto> getTaskById(int id);
 
     void deleteTask(int id);
 }

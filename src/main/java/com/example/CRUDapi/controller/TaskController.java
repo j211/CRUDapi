@@ -1,6 +1,6 @@
 package com.example.CRUDapi.controller;
 
-import com.example.CRUDapi.entities.Task;
+import com.example.CRUDapi.dto.TaskDto;
 import com.example.CRUDapi.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,26 +17,26 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping("/tasks")
-    public List<Task> getAllTasks() {
+    public List<TaskDto> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     @GetMapping("/tasks/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable int id) {
-        Optional<Task> task = taskService.getTaskById(id);
+    public ResponseEntity<TaskDto> getTaskById(@PathVariable int id) {
+        Optional<TaskDto> task = taskService.getTaskById(id);
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/tasks")
-    public ResponseEntity<Task> addNewTask(@RequestBody Task task) {
-        taskService.saveTask(task);
-        return ResponseEntity.ok(task);
+    public ResponseEntity<TaskDto> addNewTask(@RequestBody TaskDto taskDto) {
+        taskService.saveTask(taskDto);
+        return ResponseEntity.ok(taskDto);
     }
 
-    @PutMapping("/tasks")
-    public ResponseEntity<Task> updateTask(@RequestBody Task task) {
-        taskService.saveTask(task);
-        return ResponseEntity.ok(task);
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<TaskDto> updateTask(@PathVariable int id, @RequestBody TaskDto taskDto) {
+        taskService.updateTask(id, taskDto);
+        return ResponseEntity.ok(taskDto);
     }
 
     @DeleteMapping("/tasks/{id}")
